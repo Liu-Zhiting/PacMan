@@ -41,15 +41,16 @@ public:
 
 };
 
-void getNewMap(int a, int b, int* data)
-{
-	
-	
-	//init
 
+void _stdcall GetNewMap(int a, int b, int data[])
+{
+	//init
+	memset(data, EMPTY, sizeof(int) * a * b);
+
+	//test
+	srand((unsigned)time(NULL));
+	for (int i = 0; i < 10; i++)
+		data[(rand() % (a * b))] = WALL;
 
 	//use disjoint set to generate map
-
-
 }
-

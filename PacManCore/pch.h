@@ -11,5 +11,7 @@
 #include "framework.h"
 #include "utils.h"
 #include <omp.h>
+#include <cstdlib>
+#include <ctime>
 
 #endif //PCH_H
