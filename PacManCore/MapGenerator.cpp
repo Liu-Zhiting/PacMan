@@ -1,56 +1,123 @@
 #pragma once
-#include "pch.h"
+#include "utils.h"
+#include "Disjointset.h"
+#include "MapGenerator.h"
 
-class DisjointSet
+bool MapGenerator::isPointInvalid(int point)
 {
-private:
-	int* s = nullptr;
-	int count;
-public:
-	DisjointSet(int count)
-	{
-		this->count = count;
-		s = new int[count];
-		for (int i = 0; i < count; i++)
-			s[i] = -1;
-	}
+	return (point < left_up || point > right_down || 0 == point % b || b - 1 == point % b);
+}
 
-	~DisjointSet()
-	{
-		delete[] s;
-	}
-
-	int find(int x)
-	{
-		if (s[x] < 0)		
-			return x;		
-		else	
-			return (s[x] = find(s[x]));
-	}
-	void unionSet(int a, int b)
-	{
-		if (s[b] < s[a])
-			s[a] = b;
-		else
-		{
-			if (s[a] == s[b])
-				s[a]--;
-			s[b] = a;
-		}
-	}
-
-};
-
-
-void _stdcall GetNewMap(int a, int b, int data[])
+void MapGenerator::drawMaze()
 {
 	//init
-	memset(data, EMPTY, sizeof(int) * a * b);
+	DisjointSet set(a * b);
+	int neighbor[4] = { -2,-2 * b, 2,2 * b };
+	int tmpPointA, tmpPointB, tmpI, tmpJ;
 
-	//test
-	srand((unsigned)time(NULL));
-	for (int i = 0; i < 10; i++)
-		data[(rand() % (a * b))] = WALL;
+	//use disjoint set to generate maze
+	while (set.find(left_up) != set.find(right_down) &&
+			set.find(left_down) != set.find(right_up))
+	{
+		//get new tmpPoint
+		tmpI = rand() % a;
+		tmpI |= 1;   //change tmpI into odd integer
+		tmpJ = rand() % b;
+		tmpJ |= 1;
+		tmpPointA = tmpI * b + tmpJ;
+		tmpPointB = tmpPointA + neighbor[rand() % 4];
 
-	//use disjoint set to generate map
+		//check if tmpPoint out of range
+		if (isPointInvalid(tmpPointA) || isPointInvalid(tmpPointB))
+			continue;
+
+		//if wall exists, destroy wall
+		if (set.find(tmpPointA) != set.find(tmpPointB))
+		{
+			set.unionSet(tmpPointA, tmpPointB);
+			data[(tmpPointA + tmpPointB) >> 1] = CANDY;
+		}
+
+#ifdef DEBUG
+		printData();
+		set.printSet();
+		system("pause");
+		system("cls");
+#endif // DEBUG
+
+	}
 }
+
+MapGenerator::MapGenerator(int a, int b, int* data)
+{
+	//check if a,b positive odd integers
+	if (0 == (a & 1))
+		a--;
+	if (0 == (b & 1))
+		b--;
+	if (a <= 0 || b <= 0) {
+		throw "Argument exception: argument a,b of MapGenerator must be positive";
+		return;
+	}
+
+	//init random seed
+	srand((unsigned)time(NULL));
+
+	//init local variable
+	this->a = a;
+	this->b = b;
+	this->data = data;
+	this->left_up = b + 1;
+	this->right_up = b + b - 2;
+	this->left_down = (a - 2) * b + 1;
+	this->right_down = (a - 2) * b + b - 2;
+}
+
+void MapGenerator::fillWithCandyAndWall()
+{
+	//fill map with wall
+	for (int i = 0; i < a * b; i++)
+		data[i] = WALL;
+
+	//put candy
+	for (int i = 1; i <= a - 2; i += 2)
+		for (int j = 1; j <= b - 2; j += 2)
+			data[i * b + j] = CANDY;
+
+	//put powered candy
+	data[b + 1] = CANDY_POWERED;
+	data[b + b - 2] = CANDY_POWERED;
+	data[(a - 2) * b + 1] = CANDY_POWERED;
+	data[(a - 2) * b + b - 2] = CANDY_POWERED;
+}
+
+void MapGenerator::getNewMap()
+{
+	fillWithCandyAndWall();
+	drawMaze();
+}
+
+#ifdef DEBUG
+void MapGenerator::printData()
+{
+	for (int i = 0; i < a; i++)
+	{
+		for (int j = 0; j < b; j++)
+		{
+			cout << data[i * b + j] << " ";
+		}
+		cout << endl;
+	}
+}
+#endif // DEBUG
+
+void MapGenerator::drawEnemyAtCenter()
+{
+	int center = (a * b) >> 1;
+	int next[4] = {-1-b,1-b,-1+b,1+b};
+	data[center + next[0]] = ENEMY_SIMPLE_FAST;
+	data[center + next[1]] = ENEMY_SIMPLE_SLOW;
+	data[center + next[2]] = ENEMY_SMART_FAST;
+	data[center + next[3]] = ENEMY_SMART_SLOW;
+}
+

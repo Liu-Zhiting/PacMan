@@ -7,7 +7,7 @@
 //int a: 地图的高
 //int b: 地图的宽
 //int* data: 长度为a*b的地图，按行排列
-void _stdcall GetNewMap(int a, int b, int* data);
+void _stdcall GetNewMap(const int a, const int b, int data[]);
 
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,

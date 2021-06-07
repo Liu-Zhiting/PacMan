@@ -41,7 +41,8 @@ namespace PacManUI
         private int[] mapData;
         private readonly Image[] mapImage = {
             UIResource.EMPTY,
-            UIResource.WALL
+            UIResource.WALL,
+            UIResource.CANDY
         };
 
         public FormMain()
@@ -83,7 +84,7 @@ namespace PacManUI
                         SizeMode = PictureBoxSizeMode.StretchImage
                 };
                     Controls.Add(picTmp);
-                    picMap[i * a + j] = picTmp;
+                    picMap[i * b + j] = picTmp;
                 }
             }
 
@@ -103,7 +104,7 @@ namespace PacManUI
             {
                 for(int j = 0; j < b; j++)
                 {
-                    picMap[i * a + j].Image = mapImage[mapData[i * a + j]];
+                    picMap[i * b + j].Image = mapImage[mapData[i * b + j]];
                 }
             }
         }
