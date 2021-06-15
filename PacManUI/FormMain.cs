@@ -94,7 +94,7 @@ namespace PacManUI
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            GetNewMap(a, b, mapData);
+            // GetNewMap(a, b, mapData);
             LoadMap();
         }
 
@@ -110,7 +110,16 @@ namespace PacManUI
         }
 
         [DllImport("PacManCore.dll")]
-        private static extern void GetNewMap(int a, int b, int[] data);
+        private static extern void InitGame(int a, int b, int[] data);
+
+        [DllImport("PacManCore.dll")]
+        private static extern int Tick(bool playerMoved, int key);
+
+        [DllImport("PacManCore.dll")]
+        private static extern int GetPoint();
+
+        [DllImport("PacManCore.dll")]
+        private static extern void Restart();
 
     }
 }

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 class DisjointSet
 {
@@ -15,7 +15,9 @@ public:
 	int find(int x);
 
 	void unionSet(int a, int b);
-
+#ifdef _DEBUG
 	void printSet();
+#endif //DEBUG
+	
 
 };

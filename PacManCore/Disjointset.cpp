@@ -1,9 +1,9 @@
-#include "utils.h"
+﻿#include "pch.h"
 #include "Disjointset.h"
 
 DisjointSet::DisjointSet(int count)
 {
-	this->count = count;
+    this->count = count;
 	s = new int[count];
 	for (int i = 0; i < count; i++)
 		s[i] = -1;
@@ -38,14 +38,16 @@ void DisjointSet::unionSet(int a, int b)
 	}
 }
 
+#ifdef _DEBUG
 void DisjointSet::printSet()
 {
 	for (int i = 0; i < count; i++)
 	{
-		if (i != 0 && 0 == i % 10)
+		if (i != 0 && 0 == i % 9)
 			cout << endl;
 		cout << s[i] << " ";
 
 	}
 	cout << endl;
 }
+#endif //DEBUG

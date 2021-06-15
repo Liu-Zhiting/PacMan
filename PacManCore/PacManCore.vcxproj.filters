@@ -9,7 +9,7 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="资源文件">
+    <Filter Include="单元测试">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
@@ -24,6 +24,27 @@
     <ClInclude Include="utils.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Disjointset.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GameController.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MapGenerator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Movable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Test\catch.hpp">
+      <Filter>单元测试</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -35,10 +56,40 @@
     <ClCompile Include="MapGenerator.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="AgentMove.cpp">
+    <ClCompile Include="Disjointset.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="GameJudge.cpp">
+    <ClCompile Include="Enemy.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="GameController.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\DisjointsetTest.cpp">
+      <Filter>单元测试</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\EnemyTest.cpp">
+      <Filter>单元测试</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\GameControllerTest.cpp">
+      <Filter>单元测试</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\MapGeneratorTest.cpp">
+      <Filter>单元测试</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\PlayerTest.cpp">
+      <Filter>单元测试</Filter>
+    </ClCompile>
+    <ClCompile Include="Test\Test.cpp">
+      <Filter>单元测试</Filter>
+    </ClCompile>
+    <ClCompile Include="Export.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

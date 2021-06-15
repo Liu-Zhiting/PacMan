@@ -1,31 +1,22 @@
-#pragma once
+﻿#pragma once
 #include "utils.h"
 
 class MapGenerator
 {
 private:
-	int a, b;
-	int left_up, left_down, right_up, right_down;
-	int* data;
+    int a, b;
+    int left_up, left_down, right_up, right_down;
+    int* data;
+    Map map;
 
-	bool isPointInvalid(int point);
-
-	void drawMaze();
-
-	void drawEnemyAtCenter();
-
-	void fillWithCandyAndWall();
+    bool isPointInvalid(int point);
+    void drawMaze();
+    void drawEnemy();
+    void drawPlayer();
+    void fillWithCandyAndWall();
 
 public:
-	MapGenerator(int a, int b, int* data);
-
-	
-
-	void getNewMap();
-
-#ifdef DEBUG
-	void printData();
-#endif // DEBUG
-
-	
+    MapGenerator(Map map);    
+    void generateMap();
+    
 };

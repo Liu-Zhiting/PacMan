@@ -1,14 +1,21 @@
-﻿// dllmain.cpp : 定义 DLL 应用程序的入口点。
+﻿/*
+ * @Author: your name
+ * @Date: 2021-05-11 20:35:00
+ * @LastEditTime: 2021-06-15 19:33:21
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \PacMan\PacManCore\dllmain.cpp
+ */
+// dllmain.cpp : 定义 DLL 应用程序的入口点。
 #include "pch.h"
 
-
-//将给定的数组初始化为高为a、宽为b的地图
-//参数：
-//int a: 地图的高
-//int b: 地图的宽
-//int* data: 长度为a*b的地图，按行排列
-void _stdcall GetNewMap(const int a, const int b, int data[]);
-
+/// <summary>
+///     应用程序的入口点
+/// </summary>
+/// <param name="hModule"></param>
+/// <param name="ul_reason_for_call"></param>
+/// <param name="lpReserved"></param>
+/// <returns></returns>
 BOOL APIENTRY DllMain( HMODULE hModule,
                        DWORD  ul_reason_for_call,
                        LPVOID lpReserved
