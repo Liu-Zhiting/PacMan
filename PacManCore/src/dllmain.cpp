@@ -1,13 +1,14 @@
 ﻿/*
  * @Author: your name
  * @Date: 2021-05-11 20:35:00
- * @LastEditTime: 2021-06-15 19:33:21
- * @LastEditors: your name
+ * @LastEditTime: 2021-06-16 00:53:40
+ * @LastEditors: SMagic
  * @Description: In User Settings Edit
  * @FilePath: \PacMan\PacManCore\dllmain.cpp
  */
 // dllmain.cpp : 定义 DLL 应用程序的入口点。
-#include "pch.h"
+#include "utils.h"
+#include "framework.h"
 
 /// <summary>
 ///     应用程序的入口点

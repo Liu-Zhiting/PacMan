@@ -1,6 +1,13 @@
-﻿#include "pch.h"
-#include "catch.hpp"
-#include "../Player.h"
+﻿/*
+ * @Author: SMagic
+ * @Date: 2021-06-16 00:22:49
+ * @LastEditors: SMagic
+ * @LastEditTime: 2021-06-16 00:55:31
+ */
+#pragma once
+#include "utils.h"
+#include "../catch.hpp"
+#include "Player.h"
 
 TEST_CASE("Player.h")
 {

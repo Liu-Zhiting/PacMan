@@ -1,4 +1,10 @@
-﻿#include "pch.h"
+﻿/*
+ * @Author: SMagic
+ * @Date: 2021-06-05 21:47:48
+ * @LastEditors: SMagic
+ * @LastEditTime: 2021-06-16 00:48:34
+ */
+#include "utils.h"
 #include "Disjointset.h"
 
 DisjointSet::DisjointSet(int count)

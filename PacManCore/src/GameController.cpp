@@ -6,7 +6,7 @@
  * @Description: In User Settings Edit
  * @FilePath: \PacMan\PacManCore\GameController.cpp
  */
-#include "pch.h"
+#include "utils.h"
 #include "GameController.h"
 
 extern int globalPoint;

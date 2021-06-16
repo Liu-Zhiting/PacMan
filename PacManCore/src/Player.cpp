@@ -1,4 +1,12 @@
-﻿#include "pch.h"
+﻿/*
+ * @Author: your name
+ * @Date: 2021-06-08 00:12:49
+ * @LastEditTime: 2021-06-15 23:05:31
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \PacMan\PacManCore\Player.cpp
+ */
+#include "utils.h"
 #include "player.h"
 
 Player::Player(int position,Map map):Movable(position,map)

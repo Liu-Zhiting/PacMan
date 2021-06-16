@@ -1,6 +1,15 @@
-﻿#include "pch.h"
-#include "catch.hpp"
-#include "../Enemy.h"
+﻿/*
+ * @Author: your name
+ * @Date: 2021-06-13 20:47:00
+ * @LastEditTime: 2021-06-15 23:07:41
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \PacMan\PacManCore\Test\EnemyTest.cpp
+ */
+#pragma once
+#include "utils.h"
+#include "../catch.hpp"
+#include "Enemy.h"
 
 TEST_CASE("Enemy.h")
 {

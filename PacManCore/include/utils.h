@@ -1,6 +1,10 @@
 ﻿#pragma once
 #define ENEMY_COUNT 4
 
+#include <omp.h>
+#include <cstdlib>
+#include <ctime>
+
 #ifdef _DEBUG
 #include <iostream>
 using namespace std;

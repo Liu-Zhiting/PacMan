@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+﻿#include "utils.h"
 #include "Disjointset.h"
 #include "MapGenerator.h"
 

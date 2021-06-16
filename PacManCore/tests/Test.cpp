@@ -1,12 +1,13 @@
 ﻿/*
  * @Author: your name
  * @Date: 2021-06-13 20:47:00
- * @LastEditTime: 2021-06-15 19:54:33
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-06-16 00:55:53
+ * @LastEditors: SMagic
  * @Description: In User Settings Edit
  * @FilePath: \PacMan\PacManCore\Test\Test.cpp
  */
-#include "pch.h"
+#pragma once
+#include "utils.h"
 
 #ifdef _DEBUG
 
