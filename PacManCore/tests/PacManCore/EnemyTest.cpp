@@ -1,8 +1,8 @@
 ﻿/*
  * @Author: your name
  * @Date: 2021-06-13 20:47:00
- * @LastEditTime: 2021-06-15 23:07:41
- * @LastEditors: your name
+ * @LastEditTime: 2021-06-18 17:48:04
+ * @LastEditors: SMagic
  * @Description: In User Settings Edit
  * @FilePath: \PacMan\PacManCore\Test\EnemyTest.cpp
  */
@@ -15,10 +15,12 @@ TEST_CASE("Enemy.h")
 {
     int a = 9;
     int b = 9;
-    int * data = new int[a * b * sizeof(int)];
-    memset(data, 0, a * b * sizeof(int));
+    char * data = new char[a * b * sizeof(char)];
+    memset(data, 0, a * b * sizeof(char));
     Map map(a,b,data);
     const int next[4] = {-1, - map.b,1,map.b};
+
+
     
     int pos = 40;
     map.data[pos] = ENEMY_SIMPLE_SLOW;

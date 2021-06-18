@@ -1,4 +1,11 @@
-﻿#include "utils.h"
+﻿/*
+ * @Author: SMagic
+ * @Date: 2021-06-16 00:22:49
+ * @LastEditors: SMagic
+ * @LastEditTime: 2021-06-18 21:32:54
+ */
+
+#include "utils.h"
 #include "Enemy.h"
 #include <queue>
 #include <vector>
@@ -44,21 +51,21 @@ void Enemy::move(const int target)
     int nextPosition = (this->isSmart) ? getTargetedStep(target): getRandomStep();
     if(position == nextPosition)
         return;
-    updateMap(nextPosition);
+    writeMap(nextPosition);
     this->position = nextPosition;
 }
 
-void Enemy::updateMap(int nextPosition)
+void Enemy::writeMap(int nextPosition)
 {
     if(PLAYER == map.data[nextPosition] || PLAYER_POWERED == map.data[nextPosition])
     {
-        map.data[nextPosition] = PLAYER_WITH_ENEMY;
+        map.data[nextPosition] = (char)PLAYER_WITH_ENEMY;
     }
     else
     {
-        map.data[nextPosition] = this->type;
+        map.data[nextPosition] = (char)(this->type);
     }
-    map.data[position] = groundBlock;
+    map.data[position] = (char)groundBlock;
 }
 
 int Enemy::getRandomStep()

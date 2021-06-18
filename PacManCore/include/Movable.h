@@ -1,4 +1,10 @@
-﻿#pragma once
+﻿/*
+ * @Author: SMagic
+ * @Date: 2021-06-16 00:22:49
+ * @LastEditors: SMagic
+ * @LastEditTime: 2021-06-18 21:29:48
+ */
+#pragma once
 #include "utils.h"
 
 class Movable
@@ -24,6 +30,7 @@ public:
     int getPosition() const { return position; }
     bool isDead() const { return dead; }
     void kill() { dead = true; }
+    void updateMap(Map map) { this->map = map; }
 
 };
 

@@ -1,4 +1,10 @@
-﻿#pragma once
+﻿/*
+ * @Author: SMagic
+ * @Date: 2021-06-16 00:22:49
+ * @LastEditors: SMagic
+ * @LastEditTime: 2021-06-18 21:30:28
+ */
+#pragma once
 #include "utils.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -18,7 +24,8 @@ public:
 	
 	GameController(Map map):map(map){ initialize();}
 	~GameController() { dispose(); };
-	int tick(bool playerMoved, Key key);
+	char tick(bool playerMoved, Key key);
 	void restart();
 	void restart(Map map);
+	void updateMap(Map map);
 };

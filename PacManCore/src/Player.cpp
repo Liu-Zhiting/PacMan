@@ -1,11 +1,10 @@
 ﻿/*
- * @Author: your name
- * @Date: 2021-06-08 00:12:49
- * @LastEditTime: 2021-06-15 23:05:31
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: \PacMan\PacManCore\Player.cpp
+ * @Author: SMagic
+ * @Date: 2021-06-16 00:22:49
+ * @LastEditors: SMagic
+ * @LastEditTime: 2021-06-18 21:33:03
  */
+
 #include "utils.h"
 #include "player.h"
 
@@ -45,9 +44,9 @@ void Player::moveAndEat(Key key)
 
     map.data[position] = EMPTY;
     if(metEnemy)
-        map.data[position + next[key]] = PLAYER_WITH_ENEMY;
+        map.data[position + next[key]] = (char)PLAYER_WITH_ENEMY;
     else
-        map.data[position + next[key]] = (poweredTime > 0) ? PLAYER_POWERED : PLAYER;
+        map.data[position + next[key]] = (poweredTime > 0) ? (char)PLAYER_POWERED : (char)PLAYER;
     position = nextPosition;
 }
 

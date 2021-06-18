@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -11,45 +10,68 @@ using System.Windows.Forms;
 
 namespace PacManUI
 {
-    enum EntityType
-    {
-        EMPTY,
-        WALL,
-        CANDY,
-        CANDY_POWERED,
-        PLAYER,
-        PLAYER_POWERED,
-        AGENT_SIMPLE_FAST,
-        AGENT_SIMPLE_SLOW,
-        AGENT_SMART_FAST,
-        AGENT_SMART_SLOW
-    };
+    enum EntityType {
+    EMPTY,
+    WALL,
+    CANDY,
+    CANDY_POWERED,
+    PLAYER,
+    PLAYER_POWERED,
+    ENEMY_SIMPLE_FAST,
+    ENEMY_SIMPLE_SLOW,
+    ENEMY_SMART_FAST,
+    ENEMY_SMART_SLOW,
+    PLAYER_WITH_ENEMY
+};
 
-    enum Key
-    {
-        ARROW_UP,
-        ARROW_LEFT,
-        ARROW_DOWN,
-        ARROW_RIGHT
-    };
+enum Key {
+    ARROW_UP,
+    ARROW_LEFT,
+    ARROW_DOWN,
+    ARROW_RIGHT
+};
 
     public partial class FormMain : Form
     {
-        private readonly int a = 10;
-        private readonly int b = 10;
-        private PictureBox[] picMap;
-        private int[] mapData;
+        
+        [DllImport("PacManCore.dll")]
+        private static extern void InitGame(int a, int b, byte[] data);
+
+        [DllImport("PacManCore.dll")]
+        private static extern byte Tick(byte[] data,bool playerMoved, byte key);
+
+        [DllImport("PacManCore.dll")]
+        private static extern int GetPoint();
+
+        [DllImport("PacManCore.dll")]
+        private static extern void Restart(int a, int b, byte[] data);
+
+        private static int a = 49;
+        private static int b = 49;
+        private static byte[] mapData = new byte[a*b];
+
+        private static PictureBox[] picMap = new PictureBox[a * b];
+        
         private readonly Image[] mapImage = {
             UIResource.EMPTY,
             UIResource.WALL,
-            UIResource.CANDY
+            UIResource.CANDY,
+            UIResource.CANDY_POWERED,
+            UIResource.PLAYER,
+            UIResource.PLAYER,
+            UIResource.ENEMY,
+            UIResource.ENEMY,
+            UIResource.ENEMY,
+            UIResource.ENEMY,
+            UIResource.CANDY_POWERED   //Debug
         };
+
+        
 
         public FormMain()
         {
             InitializeComponent();
             MyInitialization();
-                
         }
 
 
@@ -58,18 +80,9 @@ namespace PacManUI
             //suspend layout
             SuspendLayout();
 
-            //initialize public variables
-            picMap = new PictureBox[a * b];
-            mapData = new int[a * b];
-
-
             //add picture box on the form
-            int topInit = 62, leftInit = 62,step = 30;
-            PictureBox picTmp;
-            
-
-
-
+            int topInit = 62, leftInit = 62,step = 10;
+            PictureBox picTmp; 
             for (int i = 0;i < a;i++)
             {
                 for(int j = 0; j < b;j++)
@@ -79,8 +92,7 @@ namespace PacManUI
                         Top = topInit + i * step,
                         Left = leftInit + j * step,
                         Width = step,
-                        Height = step,
-                        Image = UIResource._1,
+                        Height = step,                        
                         SizeMode = PictureBoxSizeMode.StretchImage
                 };
                     Controls.Add(picTmp);
@@ -94,12 +106,15 @@ namespace PacManUI
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            // GetNewMap(a, b, mapData);
+            for (int i = 0; i < a; i++)
+                for (int j = 0; j < b; j++)
+                    mapData[i * b + j] = 0;
+            InitGame(a,b,mapData);
             LoadMap();
         }
 
         private void LoadMap()
-        {
+        {           
             for(int i = 0;i < a;i++)
             {
                 for(int j = 0; j < b; j++)
@@ -109,17 +124,17 @@ namespace PacManUI
             }
         }
 
-        [DllImport("PacManCore.dll")]
-        private static extern void InitGame(int a, int b, int[] data);
+        private void ticker_Tick(object sender, EventArgs e)
+        {
+            Tick(mapData,false,0);
+            LoadMap();
+        }
 
-        [DllImport("PacManCore.dll")]
-        private static extern int Tick(bool playerMoved, int key);
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            ticker.Start();
+        }
 
-        [DllImport("PacManCore.dll")]
-        private static extern int GetPoint();
-
-        [DllImport("PacManCore.dll")]
-        private static extern void Restart();
-
+       
     }
 }

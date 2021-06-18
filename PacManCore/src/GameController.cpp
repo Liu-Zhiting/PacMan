@@ -1,15 +1,14 @@
 ﻿/*
- * @Author: your name
- * @Date: 2021-06-07 10:38:40
- * @LastEditTime: 2021-06-15 19:51:15
- * @LastEditors: your name
- * @Description: In User Settings Edit
- * @FilePath: \PacMan\PacManCore\GameController.cpp
+ * @Author: SMagic
+ * @Date: 2021-06-16 00:22:49
+ * @LastEditors: SMagic
+ * @LastEditTime: 2021-06-18 21:32:16
  */
+
 #include "utils.h"
 #include "GameController.h"
 
-extern int globalPoint;
+extern uint32_t globalPoint;
 
 void GameController::initialize()
 {
@@ -43,7 +42,7 @@ void GameController::dispose()
         delete enemyCollection[i];
 }
 
-int GameController::tick(bool playerMoved, Key key)
+char GameController::tick(bool playerMoved, Key key)
 {
     // end game if player dead
     if(player->isDead())
@@ -92,4 +91,12 @@ void GameController::restart(Map map)
     dispose();
     this->map = map;
     initialize();
+}
+
+void GameController::updateMap(Map map)
+{
+    this->map = map;
+    this->player->updateMap(map);
+    for(int i = 0; i < ENEMY_COUNT;i++)
+        enemyCollection[i]->updateMap(map);
 }

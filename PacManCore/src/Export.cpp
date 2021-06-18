@@ -1,11 +1,10 @@
 ﻿/*
- * @Author: your name
- * @Date: 2021-06-15 19:30:35
- * @LastEditTime: 2021-06-15 19:55:46
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \PacMan\PacManCore\Export.cpp
+ * @Author: SMagic
+ * @Date: 2021-06-16 00:22:49
+ * @LastEditors: SMagic
+ * @LastEditTime: 2021-06-18 21:34:09
  */
+
 #include "utils.h"
 #include "GameController.h"
 
@@ -20,7 +19,7 @@ GameController* pController = nullptr;
 Map* pMap = nullptr;
 
 
-int globalPoint = 0;
+uint32_t globalPoint = 0;
 
 /// <summary>
 /// 
@@ -29,7 +28,7 @@ int globalPoint = 0;
 /// <param name="b"></param>
 /// <param name="data"></param>
 /// <returns></returns>
-void _stdcall InitGame(const int a, const int b, int data[])
+void _stdcall InitGame(const uint32_t a, const uint32_t b, char data[])
 {
     pMap = new Map(a,b,data);
     pController = new GameController(*pMap);
@@ -39,16 +38,18 @@ void _stdcall InitGame(const int a, const int b, int data[])
 /// 
 /// </summary>
 /// <returns></returns>
-int _stdcall Tick(bool playerMoved, int key)
+char _stdcall Tick(char* mapData, bool playerMoved, char key)
 {
+    pMap->data = mapData;
     if(nullptr != pController)
     {
+        pController->updateMap(*pMap);
         return pController->tick(playerMoved,(Key)key);
     }
-    else { return -1; }
+    else { return 1; }
 }
 
-int _stdcall GetPoint()
+uint32_t _stdcall GetPoint()
 {
     return globalPoint;
 }
@@ -57,10 +58,12 @@ int _stdcall GetPoint()
 /// 
 /// </summary>
 /// <returns></returns>
-void _stdcall Restart()
+void _stdcall Restart(const uint32_t a, const uint32_t b, char* mapData)
 {
+    delete pMap;
+    pMap = new Map(a,b,mapData);
     if(nullptr != pController)
     {
-        pController->restart();
+        pController->restart(*pMap);
     }
 }

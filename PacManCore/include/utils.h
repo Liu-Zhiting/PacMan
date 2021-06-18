@@ -1,14 +1,25 @@
-﻿#pragma once
+﻿/*
+ * @Author: SMagic
+ * @Date: 2021-06-16 00:22:49
+ * @LastEditors: SMagic
+ * @LastEditTime: 2021-06-18 18:08:07
+ */
+
+#pragma once
 #define ENEMY_COUNT 4
+
 
 #include <omp.h>
 #include <cstdlib>
 #include <ctime>
+#include <cstdint>
 
 #ifdef _DEBUG
 #include <iostream>
 using namespace std;
 #endif
+
+
 
 enum EntityType {
     EMPTY,
@@ -42,9 +53,9 @@ public:
     int a;
     int b;
     int left_up, left_down, right_up, right_down;
-    int* data;
+    char* data;
 
-    Map(int a, int b, int* data);
+    Map(int a, int b, char* data);
     bool isPointInvalid(int point);
 
 #ifdef _DEBUG

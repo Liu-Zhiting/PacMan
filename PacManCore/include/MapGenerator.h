@@ -4,12 +4,9 @@
 class MapGenerator
 {
 private:
-    int a, b;
-    int left_up, left_down, right_up, right_down;
-    int* data;
     Map map;
 
-    bool isPointInvalid(int point);
+    bool isPointInvalid(char point);
     void drawMaze();
     void drawEnemy();
     void drawPlayer();

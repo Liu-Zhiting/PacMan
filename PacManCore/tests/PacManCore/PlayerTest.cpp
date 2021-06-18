@@ -2,7 +2,7 @@
  * @Author: SMagic
  * @Date: 2021-06-16 00:22:49
  * @LastEditors: SMagic
- * @LastEditTime: 2021-06-16 00:55:31
+ * @LastEditTime: 2021-06-17 00:37:33
  */
 #pragma once
 #include "utils.h"
@@ -13,8 +13,8 @@ TEST_CASE("Player.h")
 {
     int a = 9;
     int b = 9;
-    int * data = new int[a * b * sizeof(int)];
-    memset(data, 0, a * b * sizeof(int));
+    char * data = new char[a * b * sizeof(char)];
+    memset(data, 0, a * b * sizeof(char));
     Map map(a,b,data);
     const int next[4] = {-1, - map.b,1,map.b};
 

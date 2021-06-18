@@ -24,7 +24,7 @@ private:
 
     int getRandomStep();
     int getTargetedStep(int target);
-    void updateMap(int nextPosition);
+    void writeMap(int nextPosition);
     
     bool isBlocked();
 

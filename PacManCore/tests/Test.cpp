@@ -1,10 +1,8 @@
 ﻿/*
- * @Author: your name
- * @Date: 2021-06-13 20:47:00
- * @LastEditTime: 2021-06-16 00:55:53
+ * @Author: SMagic
+ * @Date: 2021-06-16 00:22:49
  * @LastEditors: SMagic
- * @Description: In User Settings Edit
- * @FilePath: \PacMan\PacManCore\Test\Test.cpp
+ * @LastEditTime: 2021-06-18 18:13:42
  */
 #pragma once
 #include "utils.h"
@@ -17,11 +15,11 @@
 #endif
 
 
-int _stdcall UnitTest()
+int32_t _stdcall UnitTest()
 {
 #ifdef _DEBUG
+    
     int result = Catch::Session().run();
-    system("pause");
     return result;
 #else
     return 0;

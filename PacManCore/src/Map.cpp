@@ -1,6 +1,13 @@
-﻿#include "utils.h"
+﻿/*
+ * @Author: SMagic
+ * @Date: 2021-06-16 00:22:49
+ * @LastEditors: SMagic
+ * @LastEditTime: 2021-06-18 18:07:41
+ */
 
-Map::Map(int a, int b, int* data)
+#include "utils.h"
+
+Map::Map(int a, int b, char* data)
 {
     this->a = a;
     this->b = b;
