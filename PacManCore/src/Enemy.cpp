@@ -2,7 +2,7 @@
  * @Author: SMagic
  * @Date: 2021-06-16 00:22:49
  * @LastEditors: SMagic
- * @LastEditTime: 2021-06-18 21:32:54
+ * @LastEditTime: 2021-06-18 23:08:38
  */
 
 #include "utils.h"
@@ -120,7 +120,7 @@ int Enemy::getTargetedStep(const int target)
                 {continue;}
             if (visited[index])
                 {continue;}
-            if (inBlockList(map.data[index]))
+            if (WALL == (map.data[index]))
             {
                 visited.at(index) = true;
                 continue;

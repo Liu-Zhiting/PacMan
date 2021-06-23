@@ -49,7 +49,11 @@ enum Key {
         private static int a = 49;
         private static int b = 49;
         private static byte[] mapData = new byte[a*b];
+        private static byte[] compareData = new byte[a*b];
 
+        private bool playerMoved = false;
+
+        private Key key;
         private static PictureBox[] picMap = new PictureBox[a * b];
         
         private readonly Image[] mapImage = {
@@ -79,14 +83,17 @@ enum Key {
         {
             //suspend layout
             SuspendLayout();
+            Height = Screen.PrimaryScreen.Bounds.Height;
+            Width = Screen.PrimaryScreen.Bounds.Width;
 
             //add picture box on the form
-            int topInit = 62, leftInit = 62,step = 10;
-            PictureBox picTmp; 
+            int topInit = 0, leftInit = 0,step = this.Height / a;
+            
             for (int i = 0;i < a;i++)
             {
                 for(int j = 0; j < b;j++)
                 {
+                    PictureBox picTmp; 
                     picTmp = new PictureBox
                     {
                         Top = topInit + i * step,
@@ -94,7 +101,7 @@ enum Key {
                         Width = step,
                         Height = step,                        
                         SizeMode = PictureBoxSizeMode.StretchImage
-                };
+                    };
                     Controls.Add(picTmp);
                     picMap[i * b + j] = picTmp;
                 }
@@ -106,28 +113,31 @@ enum Key {
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < a; i++)
-                for (int j = 0; j < b; j++)
-                    mapData[i * b + j] = 0;
             InitGame(a,b,mapData);
-            LoadMap();
+            mapData.CopyTo(compareData,0);
+            Parallel.For(0,a*b,index=>
+            {
+                picMap[index].Image = mapImage[mapData[index]];
+            });
         }
 
-        private void LoadMap()
-        {           
-            for(int i = 0;i < a;i++)
+        private void UpdateMap()
+        {       
+            Parallel.For(0,a*b,index=>
             {
-                for(int j = 0; j < b; j++)
+                if(mapData[index] != compareData[index])
                 {
-                    picMap[i * b + j].Image = mapImage[mapData[i * b + j]];
+                    picMap[index].Image = mapImage[mapData[index]];
+                    compareData[index] = mapData[index];
                 }
-            }
+            });
         }
 
         private void ticker_Tick(object sender, EventArgs e)
         {
-            Tick(mapData,false,0);
-            LoadMap();
+            Tick(mapData,playerMoved,(byte)key);
+            playerMoved = false;
+            UpdateMap();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -135,6 +145,43 @@ enum Key {
             ticker.Start();
         }
 
-       
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            ticker.Stop();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+
+        private void FormMain_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch(e.KeyCode)
+            {
+                case Keys.Escape:
+                    Application.Exit();
+                    break;
+                case Keys.W:
+                    playerMoved = true;
+                    this.key = Key.ARROW_UP;
+                    break;                    
+                case Keys.S:
+                    playerMoved = true;
+                    this.key = Key.ARROW_DOWN;
+                    break;
+                case Keys.A:
+                    playerMoved = true;
+                    this.key = Key.ARROW_LEFT;
+                    break;
+                case Keys.D:
+                    playerMoved = true;
+                    this.key = Key.ARROW_RIGHT;
+                    break;
+            }
+        }
+
+        
     }
 }

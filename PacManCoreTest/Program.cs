@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Runtime.InteropServices;
 
 namespace PacManCoreTest
@@ -77,7 +77,7 @@ namespace PacManCoreTest
         static void Main(string[] args)
         {
             //unit test
-            int result = UnitTest();
+            // int result = UnitTest();
 
             // try init game
             Pause();
@@ -85,12 +85,13 @@ namespace PacManCoreTest
             printItem(a,b,data);
             Pause();
 
-            for(int i = 0; i < 10;i++)
+            for(int i = 0; i < 50;i++)
             {
                 Console.Clear();
-                Tick(data,false,0);
+                Tick(data,true,(byte)(i % 4));
                 printItem(a,b,data);
-                Pause();
+                // Pause();
+                Thread.Sleep(200);
             }
 
             
