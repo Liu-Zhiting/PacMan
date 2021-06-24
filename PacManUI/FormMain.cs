@@ -47,8 +47,11 @@ namespace PacManUI
         [DllImport("PacManCore.dll")]
         private static extern void Restart(int a, int b, byte[] data,byte difficulty);
 
-        private static int a = 49;
-        private static int b = 65;
+        private static int a = 27;
+        private static int b = 33;
+        private static int pointThreshold = (int)(a*b*0.40 * 0.5);
+        private static int level = 0;
+        private const int MAX_LEVEL = 34;
         private static byte[] mapData = new byte[a * b];
         private static byte[] compareData = new byte[a * b];
 
@@ -111,10 +114,14 @@ namespace PacManUI
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            InitGame(a, b, mapData,34);
+            InitGame(a, b, mapData,0);
             mapData.CopyTo(compareData, 0);
             for (int index = 0; index < a * b; index++)
                 picMap[index].Image = mapImage[mapData[index]];
+
+            //set label
+            labelLevel.Text = "关卡：" + (level+1);
+            labelPointThreshold.Text = "目标分数：" + pointThreshold;
         }
 
         private void updateMap()
@@ -131,20 +138,40 @@ namespace PacManUI
 
         private void ticker_Tick(object sender, EventArgs e)
         {
-            Tick(mapData, playerMoved, (byte)key);
+            byte flag = Tick(mapData, playerMoved, (byte)key);
             playerMoved = false;
             updateMap();
-            labelPoint.Text = "得分：" + GetPoint();
+            int point = GetPoint();
+            labelPoint.Text = "得分：" + point;
+            
+            if(1 == flag)
+            {
+                ticker.Stop();
+                MessageBox.Show("Game Over!");
+                refreshGame();
+            }
+            else if(point >= pointThreshold)
+            {
+                ticker.Stop();
+                MessageBox.Show("You Win!");
+                if(level < MAX_LEVEL)
+                {
+                    level++;
+                    refreshGame();
+                }
+                else
+                {
+                    ticker.Stop();
+                    MessageBox.Show("你通关了!");
+                }
+                
+                
+            }
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
             ticker.Start();
-        }
-
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            ticker.Stop();
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -178,14 +205,13 @@ namespace PacManUI
             }
         }
 
-        private void btnRestart_Click(object sender, EventArgs e)
+        private void refreshGame()
         {
-            ticker.Stop();
             labelPoint.Text = "得分：0";
-            Restart(a, b, mapData,34);
+            labelLevel.Text = "关卡：" + (level+1);
+            Restart(a, b, mapData,(byte)level);
             updateMap();
         }
-
 
     }
 }

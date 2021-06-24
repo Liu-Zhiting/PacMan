@@ -32,15 +32,15 @@ namespace PacManUI
             this.components = new System.ComponentModel.Container();
             this.btnStart = new System.Windows.Forms.Button();
             this.ticker = new System.Windows.Forms.Timer(this.components);
-            this.btnStop = new System.Windows.Forms.Button();
             this.btnExit = new System.Windows.Forms.Button();
-            this.btnRestart = new System.Windows.Forms.Button();
             this.labelPoint = new System.Windows.Forms.Label();
+            this.labelPointThreshold = new System.Windows.Forms.Label();
+            this.labelLevel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(2076, 206);
+            this.btnStart.Location = new System.Drawing.Point(2076, 475);
             this.btnStart.Margin = new System.Windows.Forms.Padding(5);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(203, 82);
@@ -55,18 +55,6 @@ namespace PacManUI
             this.ticker.Interval = 200;
             this.ticker.Tick += new System.EventHandler(this.ticker_Tick);
             // 
-            // btnStop
-            // 
-            this.btnStop.Location = new System.Drawing.Point(2076, 349);
-            this.btnStop.Margin = new System.Windows.Forms.Padding(5);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(203, 82);
-            this.btnStop.TabIndex = 1;
-            this.btnStop.TabStop = false;
-            this.btnStop.Text = "停止";
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
             // btnExit
             // 
             this.btnExit.Location = new System.Drawing.Point(2076, 628);
@@ -79,18 +67,6 @@ namespace PacManUI
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
-            // btnRestart
-            // 
-            this.btnRestart.Location = new System.Drawing.Point(2076, 493);
-            this.btnRestart.Margin = new System.Windows.Forms.Padding(5);
-            this.btnRestart.Name = "btnRestart";
-            this.btnRestart.Size = new System.Drawing.Size(203, 82);
-            this.btnRestart.TabIndex = 2;
-            this.btnRestart.TabStop = false;
-            this.btnRestart.Text = "重来";
-            this.btnRestart.UseVisualStyleBackColor = true;
-            this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
-            // 
             // labelPoint
             // 
             this.labelPoint.AutoSize = true;
@@ -100,15 +76,33 @@ namespace PacManUI
             this.labelPoint.TabIndex = 3;
             this.labelPoint.Text = "得分：0";
             // 
+            // labelPointThreshold
+            // 
+            this.labelPointThreshold.AutoSize = true;
+            this.labelPointThreshold.Location = new System.Drawing.Point(2120, 144);
+            this.labelPointThreshold.Name = "labelPointThreshold";
+            this.labelPointThreshold.Size = new System.Drawing.Size(115, 21);
+            this.labelPointThreshold.TabIndex = 4;
+            this.labelPointThreshold.Text = "目标分数：\r\n";
+            // 
+            // labelLevel
+            // 
+            this.labelLevel.AutoSize = true;
+            this.labelLevel.Location = new System.Drawing.Point(2120, 210);
+            this.labelLevel.Name = "labelLevel";
+            this.labelLevel.Size = new System.Drawing.Size(73, 21);
+            this.labelLevel.TabIndex = 5;
+            this.labelLevel.Text = "关卡：";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2408, 1002);
+            this.Controls.Add(this.labelLevel);
+            this.Controls.Add(this.labelPointThreshold);
             this.Controls.Add(this.labelPoint);
-            this.Controls.Add(this.btnRestart);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
@@ -127,10 +121,10 @@ namespace PacManUI
 
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Timer ticker;
-        private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnExit;
-        private System.Windows.Forms.Button btnRestart;
         private System.Windows.Forms.Label labelPoint;
+        private System.Windows.Forms.Label labelPointThreshold;
+        private System.Windows.Forms.Label labelLevel;
     }
 }
 
