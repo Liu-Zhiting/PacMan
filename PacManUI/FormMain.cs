@@ -10,32 +10,33 @@ using System.Windows.Forms;
 
 namespace PacManUI
 {
-    enum EntityType {
-    EMPTY,
-    WALL,
-    CANDY,
-    CANDY_POWERED,
-    PLAYER,
-    PLAYER_POWERED,
-    ENEMY_SIMPLE_FAST,
-    ENEMY_SIMPLE_SLOW,
-    ENEMY_SMART_FAST,
-    ENEMY_SMART_SLOW,
-    PLAYER_WITH_ENEMY
-};
+    enum EntityType
+    {
+        EMPTY,
+        WALL,
+        CANDY,
+        CANDY_POWERED,
+        PLAYER,
+        PLAYER_POWERED,
+        ENEMY_SIMPLE_FAST,
+        ENEMY_SIMPLE_SLOW,
+        ENEMY_SMART_FAST,
+        ENEMY_SMART_SLOW,
+        PLAYER_WITH_ENEMY
+    };
 
-enum Key {
-    ARROW_UP,
-    ARROW_LEFT,
-    ARROW_DOWN,
-    ARROW_RIGHT
-};
+    enum Key
+    {
+        ARROW_UP,
+        ARROW_LEFT,
+        ARROW_DOWN,
+        ARROW_RIGHT
+    };
 
     public partial class FormMain : Form
     {
-        
         [DllImport("PacManCore.dll")]
-        private static extern void InitGame(int a, int b, byte[] data);
+        private static extern void InitGame(int a, int b, byte[] data,byte difficulty);
 
         [DllImport("PacManCore.dll")]
         private static extern byte Tick(byte[] data,bool playerMoved, byte key);
@@ -44,18 +45,18 @@ enum Key {
         private static extern int GetPoint();
 
         [DllImport("PacManCore.dll")]
-        private static extern void Restart(int a, int b, byte[] data);
+        private static extern void Restart(int a, int b, byte[] data,byte difficulty);
 
         private static int a = 49;
-        private static int b = 49;
-        private static byte[] mapData = new byte[a*b];
-        private static byte[] compareData = new byte[a*b];
+        private static int b = 65;
+        private static byte[] mapData = new byte[a * b];
+        private static byte[] compareData = new byte[a * b];
 
         private bool playerMoved = false;
 
         private Key key;
         private static PictureBox[] picMap = new PictureBox[a * b];
-        
+
         private readonly Image[] mapImage = {
             UIResource.EMPTY,
             UIResource.WALL,
@@ -70,14 +71,11 @@ enum Key {
             UIResource.CANDY_POWERED   //Debug
         };
 
-        
-
         public FormMain()
         {
             InitializeComponent();
             MyInitialization();
         }
-
 
         private void MyInitialization()
         {
@@ -87,19 +85,19 @@ enum Key {
             Width = Screen.PrimaryScreen.Bounds.Width;
 
             //add picture box on the form
-            int topInit = 0, leftInit = 0,step = this.Height / a;
-            
-            for (int i = 0;i < a;i++)
+            int topInit = 0, leftInit = 0, step = this.Height / a;
+
+            for (int i = 0; i < a; i++)
             {
-                for(int j = 0; j < b;j++)
+                for (int j = 0; j < b; j++)
                 {
-                    PictureBox picTmp; 
+                    PictureBox picTmp;
                     picTmp = new PictureBox
                     {
                         Top = topInit + i * step,
                         Left = leftInit + j * step,
                         Width = step,
-                        Height = step,                        
+                        Height = step,
                         SizeMode = PictureBoxSizeMode.StretchImage
                     };
                     Controls.Add(picTmp);
@@ -113,31 +111,30 @@ enum Key {
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            InitGame(a,b,mapData);
-            mapData.CopyTo(compareData,0);
-            Parallel.For(0,a*b,index=>
-            {
+            InitGame(a, b, mapData,34);
+            mapData.CopyTo(compareData, 0);
+            for (int index = 0; index < a * b; index++)
                 picMap[index].Image = mapImage[mapData[index]];
-            });
         }
 
-        private void UpdateMap()
-        {       
-            Parallel.For(0,a*b,index=>
-            {
-                if(mapData[index] != compareData[index])
+        private void updateMap()
+        {
+            Parallel.For(0, a * b, index =>
                 {
-                    picMap[index].Image = mapImage[mapData[index]];
-                    compareData[index] = mapData[index];
-                }
-            });
+                    if (mapData[index] != compareData[index])
+                    {
+                        picMap[index].Image = mapImage[mapData[index]];
+                        compareData[index] = mapData[index];
+                    }
+                });
         }
 
         private void ticker_Tick(object sender, EventArgs e)
         {
-            Tick(mapData,playerMoved,(byte)key);
+            Tick(mapData, playerMoved, (byte)key);
             playerMoved = false;
-            UpdateMap();
+            updateMap();
+            labelPoint.Text = "得分：" + GetPoint();
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -155,10 +152,9 @@ enum Key {
             Application.Exit();
         }
 
-
         private void FormMain_KeyDown(object sender, KeyEventArgs e)
         {
-            switch(e.KeyCode)
+            switch (e.KeyCode)
             {
                 case Keys.Escape:
                     Application.Exit();
@@ -166,7 +162,7 @@ enum Key {
                 case Keys.W:
                     playerMoved = true;
                     this.key = Key.ARROW_UP;
-                    break;                    
+                    break;
                 case Keys.S:
                     playerMoved = true;
                     this.key = Key.ARROW_DOWN;
@@ -182,6 +178,14 @@ enum Key {
             }
         }
 
-        
+        private void btnRestart_Click(object sender, EventArgs e)
+        {
+            ticker.Stop();
+            labelPoint.Text = "得分：0";
+            Restart(a, b, mapData,34);
+            updateMap();
+        }
+
+
     }
 }

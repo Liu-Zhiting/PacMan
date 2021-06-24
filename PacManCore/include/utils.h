@@ -2,7 +2,7 @@
  * @Author: SMagic
  * @Date: 2021-06-16 00:22:49
  * @LastEditors: SMagic
- * @LastEditTime: 2021-06-18 18:08:07
+ * @LastEditTime: 2021-06-24 23:06:21
  */
 
 #pragma once
@@ -19,7 +19,10 @@
 using namespace std;
 #endif
 
-
+const int POWERED_BUFF_TIME = 20;
+const int ENEMY_RESTART_TIME = 50;
+const int LEN_BLOCK_LIST = 6;
+const int ENEMY_SLOW_TIME = 2;
 
 enum EntityType {
     EMPTY,
@@ -42,8 +45,7 @@ enum Key {
     ARROW_RIGHT
 };
 
-const int POWERED_BUFF_TIME = 20;
-const int ENEMY_RESTART_TIME = 15;
+
 
 
 class Map

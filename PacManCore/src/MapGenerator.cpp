@@ -2,13 +2,13 @@
  * @Author: SMagic
  * @Date: 2021-06-16 00:22:49
  * @LastEditors: SMagic
- * @LastEditTime: 2021-06-18 18:09:58
+ * @LastEditTime: 2021-06-24 23:58:50
  */
 #include "utils.h"
 #include "Disjointset.h"
 #include "MapGenerator.h"
 
-MapGenerator::MapGenerator(Map map):map(map)
+MapGenerator::MapGenerator(Map map, char difficulty):map(map)
 {
     //check if a,b positive odd integers
     if (0 == (map.a & 1))
@@ -19,9 +19,7 @@ MapGenerator::MapGenerator(Map map):map(map)
         throw "Argument exception: argument a,b of MapGenerator must be positive";
         return;
     }
-
-    //init random seed
-    srand((unsigned)time(NULL));
+    this->difficulty = difficulty;
 }
 
 void MapGenerator::drawMaze()
@@ -32,8 +30,8 @@ void MapGenerator::drawMaze()
     int tmpPointA, tmpPointB, tmpI, tmpJ;
 
     //use disjoint set to generate maze
-    while (set.find(map.left_up) != set.find(map.right_down) ||
-            set.find(map.left_down) != set.find(map.right_up))
+    while (set.find(map.left_up) != set.find(map.right_down) 
+            || set.find(map.left_down) != set.find(map.right_up) )
     {
         //get new tmpPoint
         tmpI = rand() % map.a;
@@ -78,6 +76,7 @@ void MapGenerator::generateMap()
 {
     fillWithCandyAndWall();
     drawMaze();
+    drawPath();
     drawEnemy();
     drawPlayer();
 }
@@ -86,13 +85,15 @@ void MapGenerator::drawEnemy()
 {
     int center = (map.a * map.b) >> 1;
     int next[4] = {-2-2*map.b,2-2*map.b,-2+2*map.b,2+2*map.b};
-    for(int i = 0;i < 5; i++)
-        for(int j = 0;j < 5; j++)
-            map.data[center + next[0] + i*map.b + j] = (char)CANDY;
-    map.data[center + next[0]] = (char)ENEMY_SIMPLE_FAST;
-    map.data[center + next[1]] = (char)ENEMY_SIMPLE_SLOW;
-    map.data[center + next[2]] = (char)ENEMY_SMART_FAST;
-    map.data[center + next[3]] = (char)ENEMY_SMART_SLOW;
+
+    //parse enemy type
+    char enemyTypeCode = typeBitmap[difficulty];
+    
+    for(int i = 0; i < 4;i++)
+    {
+        map.data[center + next[i]] = enemyTypeList[(enemyTypeCode & 0x03)];
+        enemyTypeCode >>= 2;
+    }
 }
 
 void MapGenerator::drawPlayer()
@@ -102,5 +103,33 @@ void MapGenerator::drawPlayer()
     map.data[index - 1] = (char)CANDY;
     map.data[index + 1] = (char)CANDY;
     map.data[index - map.b] = (char)CANDY;
+    map.data[index - map.b - 1] = (char)CANDY;
+    map.data[index - map.b + 1] = (char)CANDY;
+}
+
+void MapGenerator::drawPath()
+{
+    //draw center square
+    int center = (map.a * map.b) >> 1;
+    int next[4] = {-2-2*map.b,2-2*map.b,-2+2*map.b,2+2*map.b};
+    for(int i = 0;i < 5; i++)
+        for(int j = 0;j < 5; j++)
+            map.data[center + next[0] + i*map.b + j] = (char)CANDY;
+
+    //draw path around            
+    for(int i = 1; i < map.right_up - map.left_up; i++)
+    {
+        map.data[map.left_up + i] = CANDY;
+        map.data[map.left_down + i] = CANDY;
+    }
+    for(int j = map.b; j < map.left_down - map.left_up; j+=map.b)
+    {
+        map.data[map.left_up + j] = CANDY;
+        map.data[map.right_up + j] = CANDY;
+    }
+    map.data[map.left_up + map.b + 1] = CANDY;
+    map.data[map.left_down - map.b + 1] = CANDY;
+    map.data[map.right_up + map.b - 1] = CANDY;
+    map.data[map.right_down - map.b - 1] = CANDY;
 }
 

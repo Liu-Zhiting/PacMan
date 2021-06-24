@@ -2,7 +2,7 @@
  * @Author: SMagic
  * @Date: 2021-06-16 00:22:49
  * @LastEditors: SMagic
- * @LastEditTime: 2021-06-18 21:30:28
+ * @LastEditTime: 2021-06-24 22:12:56
  */
 #pragma once
 #include "utils.h"
@@ -17,15 +17,14 @@ private:
 	Enemy* enemyCollection[ENEMY_COUNT];
 	MapGenerator* generator;
 	Map map;
-	void initialize();
+	void initialize(char difficulty);
 	void dispose();
 
 public:
 	
-	GameController(Map map):map(map){ initialize();}
+	GameController(Map map, char difficulty):map(map){ initialize(difficulty);}
 	~GameController() { dispose(); };
 	char tick(bool playerMoved, Key key);
-	void restart();
-	void restart(Map map);
+	void restart(Map map,char difficulty);
 	void updateMap(Map map);
 };

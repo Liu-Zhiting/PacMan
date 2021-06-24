@@ -2,7 +2,7 @@
  * @Author: SMagic
  * @Date: 2021-06-16 00:22:49
  * @LastEditors: SMagic
- * @LastEditTime: 2021-06-18 21:29:48
+ * @LastEditTime: 2021-06-24 23:10:00
  */
 #pragma once
 #include "utils.h"
@@ -29,7 +29,7 @@ public:
 
     int getPosition() const { return position; }
     bool isDead() const { return dead; }
-    void kill() { dead = true; }
+    void kill() { dead = true; position = 0;}
     void updateMap(Map map) { this->map = map; }
 
 };

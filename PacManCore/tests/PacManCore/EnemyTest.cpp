@@ -1,7 +1,7 @@
 ﻿/*
  * @Author: your name
  * @Date: 2021-06-13 20:47:00
- * @LastEditTime: 2021-06-18 17:48:04
+ * @LastEditTime: 2021-06-24 17:03:26
  * @LastEditors: SMagic
  * @Description: In User Settings Edit
  * @FilePath: \PacMan\PacManCore\Test\EnemyTest.cpp
@@ -25,7 +25,9 @@ TEST_CASE("Enemy.h")
     int pos = 40;
     map.data[pos] = ENEMY_SIMPLE_SLOW;
     Enemy enemy1(ENEMY_SIMPLE_SLOW,pos,map);
+    enemy1.clearSlowTime();
     Enemy enemy2(ENEMY_SMART_SLOW,pos,map);
+    enemy2.clearSlowTime();
 
     SECTION("initialize")
     {

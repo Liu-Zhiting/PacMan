@@ -2,7 +2,7 @@
  * @Author: SMagic
  * @Date: 2021-06-16 00:22:49
  * @LastEditors: SMagic
- * @LastEditTime: 2021-06-18 21:32:16
+ * @LastEditTime: 2021-06-24 23:51:42
  */
 
 #include "utils.h"
@@ -10,9 +10,9 @@
 
 extern uint32_t globalPoint;
 
-void GameController::initialize()
+void GameController::initialize(char difficulty)
 {
-    generator = new MapGenerator(map);
+    generator = new MapGenerator(map,difficulty);
     generator->generateMap();
     int enemy_tail = 0;
     for(int i = 0; i < map.a*map.b;i++)
@@ -61,13 +61,15 @@ char GameController::tick(bool playerMoved, Key key)
             continue;
         if(player->isPowered())
         {
-            enemyCollection[i]->kill();
             map.data[player->getPosition()] = PLAYER_POWERED;
+            enemyCollection[i]->kill();
+            break;
         }
         else
         {
-            player->kill();
             map.data[player->getPosition()] = enemyCollection[i]->getType();
+            player->kill();
+            break;
         }
     }    
 
@@ -77,20 +79,18 @@ char GameController::tick(bool playerMoved, Key key)
     // buff time count down
     player->minusPoweredTime();
 
+    //try to restart dead enemy
+    for(int i = 0;i < ENEMY_COUNT;i++)
+        enemyCollection[i]->tryRestart();
+
     return 0;
 }
 
-void GameController::restart()
-{
-    dispose();
-    initialize();
-}
-
-void GameController::restart(Map map)
+void GameController::restart(Map map,char difficulty)
 {
     dispose();
     this->map = map;
-    initialize();
+    initialize(difficulty);
 }
 
 void GameController::updateMap(Map map)

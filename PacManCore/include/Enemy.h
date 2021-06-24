@@ -1,7 +1,14 @@
-﻿#pragma once
+﻿/*
+ * @Author: SMagic
+ * @Date: 2021-06-16 00:22:49
+ * @LastEditors: SMagic
+ * @LastEditTime: 2021-06-24 17:02:20
+ */
+#pragma once
 #include "utils.h"
 #include "Movable.h"
-#define LEN_BLOCK_LIST 6
+
+
 
 class Enemy : public Movable
 {
@@ -20,6 +27,7 @@ private:
     bool isSmart;
     bool isFast;
     int restartTime;
+    int slowTime;
 	EntityType groundBlock;
 
     int getRandomStep();
@@ -32,4 +40,9 @@ public:
     Enemy(EntityType type, int position, Map map);
     void move(const int target);
     EntityType getType() const { return type; }
+    void tryRestart();
+
+#ifdef _DEBUG
+    void clearSlowTime(){slowTime = 0;}
+#endif
 };

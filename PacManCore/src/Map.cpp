@@ -2,7 +2,7 @@
  * @Author: SMagic
  * @Date: 2021-06-16 00:22:49
  * @LastEditors: SMagic
- * @LastEditTime: 2021-06-18 18:07:41
+ * @LastEditTime: 2021-06-24 16:50:13
  */
 
 #include "utils.h"
@@ -57,6 +57,12 @@ void Map::printItem() //■○●△▲
             case PLAYER_POWERED:
             case PLAYER:
                 cout << "▲";
+                break;
+            case CANDY:
+                cout << "○";
+                break;
+            case CANDY_POWERED:
+                cout << "●";
                 break;
             default:
                 cout << "  ";

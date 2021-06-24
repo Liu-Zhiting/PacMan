@@ -2,7 +2,7 @@
  * @Author: SMagic
  * @Date: 2021-06-16 00:22:49
  * @LastEditors: SMagic
- * @LastEditTime: 2021-06-18 23:08:38
+ * @LastEditTime: 2021-06-24 01:59:00
  */
 
 #include "utils.h"
@@ -19,7 +19,41 @@ Enemy::Enemy(EntityType type, int position,Map map):Movable(position,map)
     this->isFast = ENEMY_SIMPLE_FAST == type || ENEMY_SMART_FAST == type;
     this->dead = false;
     this->restartTime = ENEMY_RESTART_TIME;
+    this->slowTime = ENEMY_SLOW_TIME;
     this->groundBlock = CANDY;
+}
+
+void Enemy::tryRestart()
+{
+    if(!dead)
+        return;
+    if(restartTime-- > 0)
+        return;
+
+    //reset state
+    restartTime = ENEMY_RESTART_TIME;
+    this->dead = false;
+
+    //give enemy random position
+    int tail = 0;
+    int randList[25] = {0};
+    int center = (map.a * map.b) >> 1;
+    int next[4] = {-2-2*map.b,2-2*map.b,-2+2*map.b,2+2*map.b};
+    for(int i = 0;i < 5; i++)
+        for(int j = 0;j < 5; j++)
+            if(EMPTY == map.data[center + next[0] + i*map.b + j] 
+                || CANDY == map.data[center + next[0] + i*map.b + j])
+                randList[tail++] = center + next[0] + i*map.b + j;
+    int pos = randList[rand() % tail];
+    position = pos;
+    map.data[pos] = (char)this->type;
+
+    //reset powered candy
+    map.data[map.left_up] = CANDY_POWERED;
+    map.data[map.left_down] = CANDY_POWERED;
+    map.data[map.right_up] = CANDY_POWERED;
+    map.data[map.right_down] = CANDY_POWERED;
+    
 }
 
 bool Enemy::isBlocked()
@@ -48,6 +82,13 @@ void Enemy::move(const int target)
 {
     if (isBlocked() || dead)
         return;
+    if(!isFast)
+    {
+        if(slowTime-- > 0)
+            return;
+        slowTime = ENEMY_SLOW_TIME;
+    }
+    
     int nextPosition = (this->isSmart) ? getTargetedStep(target): getRandomStep();
     if(position == nextPosition)
         return;
@@ -57,15 +98,17 @@ void Enemy::move(const int target)
 
 void Enemy::writeMap(int nextPosition)
 {
+    map.data[position] = (char)groundBlock;
     if(PLAYER == map.data[nextPosition] || PLAYER_POWERED == map.data[nextPosition])
     {
+        groundBlock = EMPTY;
         map.data[nextPosition] = (char)PLAYER_WITH_ENEMY;
     }
     else
     {
+        groundBlock = (EntityType)map.data[nextPosition];
         map.data[nextPosition] = (char)(this->type);
     }
-    map.data[position] = (char)groundBlock;
 }
 
 int Enemy::getRandomStep()
@@ -108,10 +151,7 @@ int Enemy::getTargetedStep(const int target)
     while (!q.empty())
     {
         if (target == q.front())
-        {
-            found = true;
-            break;
-        }
+            {found = true; break;}
                 
         for (int i = 0; i < 4; i++)
         {
@@ -121,10 +161,7 @@ int Enemy::getTargetedStep(const int target)
             if (visited[index])
                 {continue;}
             if (WALL == (map.data[index]))
-            {
-                visited.at(index) = true;
-                continue;
-            }
+                {visited.at(index) = true; continue;}
             q.push(index);
             visited.at(index) = true;
             previous.at(index) = q.front();

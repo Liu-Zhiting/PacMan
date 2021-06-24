@@ -2,7 +2,7 @@
  * @Author: SMagic
  * @Date: 2021-06-16 00:22:49
  * @LastEditors: SMagic
- * @LastEditTime: 2021-06-18 17:50:52
+ * @LastEditTime: 2021-06-24 22:58:10
  */
 #pragma once
 #include "utils.h"
@@ -19,26 +19,26 @@ TEST_CASE("GameController.h")
     Map map(a,b,data);
     const int next[4] = {-1, - map.b,1,map.b};
 
-    GameController controller(map);
+    GameController controller(map,34);
       
-    SECTION("controller initialiaztion")
-    {
-        cout << "========Initialization Succeeded========" << endl;
-        map.printItem();
-        Sleep(1000);
-        system("cls");
-    }
+    // SECTION("controller initialiaztion")
+    // {
+    //     cout << "========Initialization Succeeded========" << endl;
+    //     map.printItem();
+    //     Sleep(1000);
+    //     system("cls");
+    // }
 
-    SECTION("controller could tick")
-    {
-        for (int i = 0; i < 30; i++)
-        {
-            system("cls");
-            cout << "========Tick " << (i+1) << " ========" << endl;
-            controller.tick(false,ARROW_DOWN);
-            map.printItem();
-            Sleep(300);
-        }
-    }
+    // SECTION("controller could tick")
+    // {
+    //     for (int i = 0; i < 30; i++)
+    //     {
+    //         system("cls");
+    //         cout << "========Tick " << (i+1) << " ========" << endl;
+    //         controller.tick(false,ARROW_DOWN);
+    //         map.printItem();
+    //         Sleep(300);
+    //     }
+    // }
 
 }
