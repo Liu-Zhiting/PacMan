@@ -88,7 +88,6 @@ void MapGenerator::drawEnemy()
 
     //parse enemy type
     char enemyTypeCode = typeBitmap[difficulty];
-    
     for(int i = 0; i < 4;i++)
     {
         map.data[center + next[i]] = enemyTypeList[(enemyTypeCode & 0x03)];

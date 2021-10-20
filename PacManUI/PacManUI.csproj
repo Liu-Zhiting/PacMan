@@ -156,7 +156,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\Debug\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">
@@ -169,6 +168,27 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CANDY.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CANDY_POWERED.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\EMPTY.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ENEMY.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PLAYER.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WALL.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\PLAYER_POWERED.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

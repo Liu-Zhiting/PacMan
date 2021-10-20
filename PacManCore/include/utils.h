@@ -19,7 +19,7 @@
 using namespace std;
 #endif
 
-const int POWERED_BUFF_TIME = 20;
+const int POWERED_BUFF_TIME = 50;
 const int ENEMY_RESTART_TIME = 50;
 const int LEN_BLOCK_LIST = 6;
 const int ENEMY_SLOW_TIME = 2;

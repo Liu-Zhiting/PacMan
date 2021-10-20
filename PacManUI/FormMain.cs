@@ -49,7 +49,7 @@ namespace PacManUI
 
         private static int a = 27;
         private static int b = 33;
-        private static int pointThreshold = (int)(a*b*0.40 * 0.5);
+        private static int pointThreshold =  (int)(a*b*0.40 * 0.5);
         private static int level = 0;
         private const int MAX_LEVEL = 34;
         private static byte[] mapData = new byte[a * b];
@@ -66,7 +66,7 @@ namespace PacManUI
             UIResource.CANDY,
             UIResource.CANDY_POWERED,
             UIResource.PLAYER,
-            UIResource.PLAYER,
+            UIResource.PLAYER_POWERED,
             UIResource.ENEMY,
             UIResource.ENEMY,
             UIResource.ENEMY,
@@ -77,10 +77,10 @@ namespace PacManUI
         public FormMain()
         {
             InitializeComponent();
-            MyInitialization();
+            FormMapInitialzation();
         }
 
-        private void MyInitialization()
+        private void FormMapInitialzation()
         {
             //suspend layout
             SuspendLayout();
@@ -172,6 +172,7 @@ namespace PacManUI
         private void btnStart_Click(object sender, EventArgs e)
         {
             ticker.Start();
+            btnStart.Enabled = false;
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -207,6 +208,7 @@ namespace PacManUI
 
         private void refreshGame()
         {
+            btnStart.Enabled = true;
             labelPoint.Text = "得分：0";
             labelLevel.Text = "关卡：" + (level+1);
             Restart(a, b, mapData,(byte)level);

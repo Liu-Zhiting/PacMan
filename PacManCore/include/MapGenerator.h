@@ -28,7 +28,6 @@ private:
         ENEMY_SMART_FAST
     };
 
-    bool isPointInvalid(char point);
     void drawMaze();
     void drawEnemy();
     void drawPlayer();

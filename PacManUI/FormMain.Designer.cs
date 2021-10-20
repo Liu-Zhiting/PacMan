@@ -36,11 +36,12 @@ namespace PacManUI
             this.labelPoint = new System.Windows.Forms.Label();
             this.labelPointThreshold = new System.Windows.Forms.Label();
             this.labelLevel = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnStart
             // 
-            this.btnStart.Location = new System.Drawing.Point(2076, 475);
+            this.btnStart.Location = new System.Drawing.Point(1895, 893);
             this.btnStart.Margin = new System.Windows.Forms.Padding(5);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(203, 82);
@@ -57,7 +58,7 @@ namespace PacManUI
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(2076, 628);
+            this.btnExit.Location = new System.Drawing.Point(2141, 893);
             this.btnExit.Margin = new System.Windows.Forms.Padding(5);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(203, 82);
@@ -70,35 +71,51 @@ namespace PacManUI
             // labelPoint
             // 
             this.labelPoint.AutoSize = true;
-            this.labelPoint.Location = new System.Drawing.Point(2120, 83);
+            this.labelPoint.Font = new System.Drawing.Font("微软雅黑", 21.85714F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPoint.Location = new System.Drawing.Point(1947, 23);
             this.labelPoint.Name = "labelPoint";
-            this.labelPoint.Size = new System.Drawing.Size(84, 21);
+            this.labelPoint.Size = new System.Drawing.Size(215, 67);
             this.labelPoint.TabIndex = 3;
             this.labelPoint.Text = "得分：0";
             // 
             // labelPointThreshold
             // 
             this.labelPointThreshold.AutoSize = true;
-            this.labelPointThreshold.Location = new System.Drawing.Point(2120, 144);
+            this.labelPointThreshold.Font = new System.Drawing.Font("微软雅黑", 21.85714F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelPointThreshold.Location = new System.Drawing.Point(1947, 117);
             this.labelPointThreshold.Name = "labelPointThreshold";
-            this.labelPointThreshold.Size = new System.Drawing.Size(115, 21);
+            this.labelPointThreshold.Size = new System.Drawing.Size(289, 67);
             this.labelPointThreshold.TabIndex = 4;
             this.labelPointThreshold.Text = "目标分数：\r\n";
             // 
             // labelLevel
             // 
             this.labelLevel.AutoSize = true;
-            this.labelLevel.Location = new System.Drawing.Point(2120, 210);
+            this.labelLevel.Font = new System.Drawing.Font("微软雅黑", 21.85714F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelLevel.Location = new System.Drawing.Point(1947, 207);
             this.labelLevel.Name = "labelLevel";
-            this.labelLevel.Size = new System.Drawing.Size(73, 21);
+            this.labelLevel.Size = new System.Drawing.Size(185, 67);
             this.labelLevel.TabIndex = 5;
             this.labelLevel.Text = "关卡：";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("微软雅黑", 14.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox1.Location = new System.Drawing.Point(1822, 302);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(504, 540);
+            this.textBox1.TabIndex = 7;
+            this.textBox1.Text = "游戏说明：\r\n点击开始运行游戏，按WSAD控制玩家移动，按ESC退出游戏\r\n玩家每吃1个豆子可以得1分，得分达到目标分数即可过关，游戏一共35关，随着关卡递进游戏" +
+    "难度会逐渐增加\r\n四个角落有红色豆子，玩家吃了以后一定时间内触碰鬼魂可以杀死鬼魂，杀死鬼魂不会得分，并且鬼魂死亡后会在一段时间内重生\r\n";
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(2408, 1002);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.labelLevel);
             this.Controls.Add(this.labelPointThreshold);
             this.Controls.Add(this.labelPoint);
@@ -125,6 +142,7 @@ namespace PacManUI
         private System.Windows.Forms.Label labelPoint;
         private System.Windows.Forms.Label labelPointThreshold;
         private System.Windows.Forms.Label labelLevel;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
